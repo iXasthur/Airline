@@ -121,7 +121,11 @@ DROP TABLE IF EXISTS `crew_member`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `crew_member` (
   `crew_id` int NOT NULL,
-  `member_id` int NOT NULL
+  `member_id` int NOT NULL,
+  KEY `crew_member_crew_id_fk` (`crew_id`),
+  KEY `crew_member_member_id_fk` (`member_id`),
+  CONSTRAINT `crew_member_crew_id_fk` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`),
+  CONSTRAINT `crew_member_member_id_fk` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -143,16 +147,16 @@ DROP TABLE IF EXISTS `flight`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flight` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `departure_city_id` int NOT NULL,
-  `arrival_city_id` int NOT NULL,
+  `departure_airport_id` int NOT NULL,
+  `arrival_airport_id` int NOT NULL,
   `crew_id` int NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `flight_city_id_fk` (`departure_city_id`),
-  KEY `flight_city_id_fk_2` (`arrival_city_id`),
   KEY `flight_crew_id_fk` (`crew_id`),
-  CONSTRAINT `flight_city_id_fk` FOREIGN KEY (`departure_city_id`) REFERENCES `city` (`id`),
-  CONSTRAINT `flight_city_id_fk_2` FOREIGN KEY (`arrival_city_id`) REFERENCES `city` (`id`),
+  KEY `flight_airport_id_fk` (`departure_airport_id`),
+  KEY `flight_airport_id_fk_2` (`arrival_airport_id`),
+  CONSTRAINT `flight_airport_id_fk` FOREIGN KEY (`departure_airport_id`) REFERENCES `airport` (`id`),
+  CONSTRAINT `flight_airport_id_fk_2` FOREIGN KEY (`arrival_airport_id`) REFERENCES `airport` (`id`),
   CONSTRAINT `flight_crew_id_fk` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -201,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-10  1:27:01
+-- Dump completed on 2020-10-10 16:11:39
