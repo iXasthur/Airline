@@ -5,13 +5,13 @@
          version="3.1">
 
     <servlet>
-        <servlet-name>MyServlet</servlet-name>
-        <servlet-class>app.controller.MyServlet</servlet-class>
+        <servlet-name>MainPageController</servlet-name>
+        <servlet-class>controller.MainPageController</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>MyServlet</servlet-name>
-        <url-pattern>/MyServlet</url-pattern>
+        <servlet-name>MainPageController</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 </web-app>
