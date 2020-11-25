@@ -151,6 +151,7 @@ CREATE TABLE `flight` (
   `arrival_airport_id` int NOT NULL,
   `crew_id` int NOT NULL,
   `date` datetime NOT NULL,
+  `seats` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `flight_crew_id_fk` (`crew_id`),
   KEY `flight_airport_id_fk` (`departure_airport_id`),
@@ -182,7 +183,9 @@ CREATE TABLE `member` (
   `first_name` varchar(128) DEFAULT NULL,
   `middle_name` varchar(128) DEFAULT NULL,
   `last_name` varchar(128) DEFAULT NULL,
-  `role` enum('admin','supervisor','pilot','navigator','radioman','stewardess') DEFAULT NULL,
+  `role` enum('admin','supervisor','pilot','navigator','radioman','stewardess','customer') DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `password_hash` varbinary(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -195,6 +198,34 @@ LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `ticket`
+--
+
+DROP TABLE IF EXISTS `ticket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ticket` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `member_id` int DEFAULT NULL,
+  `flight_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ticket_flight_id_fk` (`flight_id`),
+  KEY `ticket_member_id_fk` (`member_id`),
+  CONSTRAINT `ticket_flight_id_fk` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`id`),
+  CONSTRAINT `ticket_member_id_fk` FOREIGN KEY (`member_id`) REFERENCES `member` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ticket`
+--
+
+LOCK TABLES `ticket` WRITE;
+/*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -205,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-10 16:11:39
+-- Dump completed on 2020-11-25 17:25:55
