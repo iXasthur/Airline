@@ -35,6 +35,16 @@ public class MainPageController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("POST");
+        String action = req.getParameter("action");
+        switch (action) {
+            case "logout": {
+                req.getSession().invalidate();
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        resp.sendRedirect("/");
     }
 }
