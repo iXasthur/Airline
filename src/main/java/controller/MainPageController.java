@@ -2,6 +2,7 @@ package controller;
 
 import dao.sql.MemberDAOSQL;
 import entity.Member;
+import service.UserService;
 import utils.DBConnection;
 import utils.Hasher;
 
@@ -18,8 +19,15 @@ import java.sql.SQLException;
 @WebServlet(name = "controller.MainPageController")
 public class MainPageController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = (String)req.getSession().getAttribute("email");
+        String phash = (String)req.getSession().getAttribute("phash");
 
-        System.out.println("GET");
+        if (email != null && phash != null) {
+            Member member = UserService.auth(email, phash);
+            if (member == null) {
+                req.getSession().invalidate();
+            }
+        }
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/main.jsp");
         requestDispatcher.forward(req, resp);

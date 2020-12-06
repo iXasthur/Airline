@@ -15,23 +15,23 @@
     <table style="width: 80%">
         <tr>
             <td>First Name</td>
-            <td><input type="text" name="firstName" /></td>
+            <td><input type="text" name="firstName" required/></td>
         </tr>
         <tr>
             <td>Middle Name</td>
-            <td><input type="text" name="middleName" /></td>
+            <td><input type="text" name="middleName" required/></td>
         </tr>
         <tr>
             <td>Last Name</td>
-            <td><input type="text" name="lastName" /></td>
+            <td><input type="text" name="lastName" required/></td>
         </tr>
         <tr>
             <td>Email</td>
-            <td><input type="email" name="email" /></td>
+            <td><input type="email" name="email" required/></td>
         </tr>
         <tr>
             <td>Password</td>
-            <td><input type="password" name="password" /></td>
+            <td><input type="password" name="password" required/></td>
         </tr>
     </table>
     <input type="submit" value="Submit" />

@@ -30,8 +30,12 @@ public class SignUpController extends HttpServlet {
         String lastName = req.getParameter("lastName");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
+        String phash = password.isEmpty() ? "" : Hasher.SHA256(password);
 
-        UserService.register(firstName, middleName, lastName, email, password);
+        Member member = UserService.register(firstName, middleName, lastName, email, phash);
+        if (member != null) {
+            req.getSession().setAttribute("member", member);
+        }
 
         resp.sendRedirect("/");
     }

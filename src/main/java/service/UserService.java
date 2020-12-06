@@ -5,23 +5,26 @@ import entity.Member;
 import utils.Hasher;
 
 public class UserService {
-    public static void register(String firstName, String middleName, String lastName, String email, String password) {
-        if (!firstName.isEmpty() && !middleName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+    public static Member register(String firstName, String middleName, String lastName, String email, String phash) {
+        if (!firstName.isEmpty() && !middleName.isEmpty() && !lastName.isEmpty() && !email.isEmpty() && !phash.isEmpty()) {
             try {
                 if (!(new MemberDAOSQL().isMemberExists(email))) {
-                    Member member = new Member(firstName, middleName, lastName, email, Hasher.SHA256(password));
-                    new MemberDAOSQL().addMember(member);
+                    Member member = new Member(firstName, middleName, lastName, email, phash);
+                    if (new MemberDAOSQL().addMember(member)) {
+                        return member;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
-    public static Member auth(String email, String password) {
+    public static Member auth(String email, String phash) {
         try {
             Member member = new MemberDAOSQL().getMember(email);
-            if (member.passwordHash.equals(Hasher.SHA256(password))) {
+            if (member != null && member.passwordHash.equals(phash)) {
                 return member;
             }
         } catch (Exception e) {
