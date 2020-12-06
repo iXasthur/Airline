@@ -1,7 +1,9 @@
 <%@ page import="entity.Member" %>
 <%@ page import="dao.sql.MemberDAOSQL" %>
 <%@ page import="service.UserService" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="entity.Crew" %>
+<%@ page import="service.CrewService" %><%--
   Created by IntelliJ IDEA.
   User: iXasthur
   Date: 25.11.2020
@@ -128,6 +130,19 @@
                 "    <input type=\"hidden\" name=\"action\" value=\"addcrew\" hidden/>\n" +
                 "    <input type=\"submit\" value=\"Submit\"/>\n" +
                 "</form>");
+    }
+%>
+<h1>Crews</h1>
+<%
+    //Crews
+    List<Crew> crews = CrewService.getAll();
+    for (Crew crew: crews) {
+        String names = "";
+        for (Member m: crew.members) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            names += name + ", ";
+        }
+        out.print("<p>Crew " + crew.id + " (" + names + ")</p>");
     }
 %>
 <%
