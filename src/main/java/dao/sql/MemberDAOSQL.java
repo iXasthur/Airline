@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberDAOSQL implements MemberDAO {
 
@@ -38,6 +40,34 @@ public class MemberDAOSQL implements MemberDAO {
     }
 
     @Override
+    public List<Member> getMembers() throws Exception {
+        Connection connection = DBConnection.connect();
+
+        try {
+            List<Member> members = new ArrayList<>();
+
+            PreparedStatement query = connection.prepareStatement("SELECT * FROM member");
+            ResultSet result = query.executeQuery();
+            while (result.next()) {
+                int _id = result.getInt(1);
+                String _firstName = result.getString(2);
+                String _middleName = result.getString(3);
+                String _lastName = result.getString(4);
+                Member.Role _role = Member.Role.valueOf(result.getString(5).toUpperCase());
+                String _email = result.getString(6);
+                String _passwordHash = result.getString(7);
+                members.add(new Member(_id, _firstName, _middleName, _lastName, _role, _email, _passwordHash));
+            }
+
+            return members;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
     public boolean addMember(Member member) throws Exception {
         Connection connection = DBConnection.connect();
 
@@ -49,8 +79,8 @@ public class MemberDAOSQL implements MemberDAO {
             addUserQuery.setString(4, member.role.name().toLowerCase());
             addUserQuery.setString(5, member.email);
             addUserQuery.setString(6, member.passwordHash);
-
-            return addUserQuery.execute();
+            addUserQuery.execute();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }

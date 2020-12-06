@@ -12,7 +12,7 @@
 </head>
 <body>
 <form action="<%= request.getContextPath() %>" method="post">
-    <table style="width: 80%">
+    <table>
         <tr>
             <td>First Name</td>
             <td><input type="text" name="firstName" required/></td>

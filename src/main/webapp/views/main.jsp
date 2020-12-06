@@ -1,6 +1,7 @@
 <%@ page import="entity.Member" %>
 <%@ page import="dao.sql.MemberDAOSQL" %>
-<%@ page import="service.UserService" %><%--
+<%@ page import="service.UserService" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: iXasthur
   Date: 25.11.2020
@@ -36,16 +37,108 @@
 %>
 <%
     // Crew creation (supervisor)
+    // Crew is 2 pilots, navigator, radioman, 3 stewardesses
     if (member != null && member.role == Member.Role.SUPERVISOR) {
+        List<Member> pilots = UserService.getPilots();
+        List<Member> navigators = UserService.getNavigators();
+        List<Member> radiomans = UserService.getRadiomans();
+        List<Member> stewardesses = UserService.getStewardesses();
 
+        out.print("<h1>Crew creator</h1>");
+        out.print("<form action=\"\" + request.getContextPath() + \"\" method=\"post\">\n" +
+                "    <table>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"pilot0\">Pilot 1</label>\n" +
+                "                <select id=\"pilot0\" name=\"pilot0\">");
+        for (Member m : pilots) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            out.print("<option value=\"" + m.id + "\">" + name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"pilot1\">Pilot 2</label>\n" +
+                "                <select id=\"pilot1\" name=\"pilot1\">");
+        for (Member m : pilots) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            out.print("<option value=\"" + m.id + "\">" + name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"navigator\">Navigator</label>\n" +
+                "                <select id=\"navigator\" name=\"navigator\">");
+        for (Member m : navigators) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            out.print("<option value=\"" + m.id + "\">" + name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"radioman\">Radioman</label>\n" +
+                "                <select id=\"radioman\" name=\"radioman\">");
+        for (Member m : radiomans) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            out.print("<option value=\"" + m.id + "\">" + name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"stewardess0\">Stewardess 1</label>\n" +
+                "                <select id=\"stewardess0\" name=\"stewardess0\">");
+        for (Member m : stewardesses) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            out.print("<option value=\"" + m.id + "\">" + name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"stewardess1\">Stewardess 2</label>\n" +
+                "                <select id=\"stewardess1\" name=\"stewardess1\">");
+        for (Member m : stewardesses) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            out.print("<option value=\"" + m.id + "\">" + name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"stewardess2\">Stewardess 3</label>\n" +
+                "                <select id=\"stewardess2\" name=\"stewardess2\">");
+        for (Member m : stewardesses) {
+            String name = m.firstName + " " + m.middleName + " " + m.lastName;
+            out.print("<option value=\"" + m.id + "\">" + name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "    </table>\n" +
+                "    <input type=\"hidden\" name=\"action\" value=\"addcrew\" hidden/>\n" +
+                "    <input type=\"submit\" value=\"Submit\"/>\n" +
+                "</form>");
     }
 %>
 <%
     // Flight creation (admin)
     if (member != null && member.role == Member.Role.ADMIN) {
-
+        out.print("<h1>Flight creator</h1>");
     }
 %>
 <h1>Flights</h1>
+<%
+    //Flights
+%>
 </body>
 </html>
