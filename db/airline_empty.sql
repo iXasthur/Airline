@@ -25,10 +25,13 @@ DROP TABLE IF EXISTS `airport`;
 CREATE TABLE `airport` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(128) DEFAULT NULL,
-  `city_id` int NOT NULL,
+  `country_id` int DEFAULT NULL,
+  `city_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `airport_country_id_fk` (`country_id`),
   KEY `airport_city_id_fk` (`city_id`),
-  CONSTRAINT `airport_city_id_fk` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
+  CONSTRAINT `airport_city_id_fk` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
+  CONSTRAINT `airport_country_id_fk` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -236,4 +239,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-25 17:25:55
+-- Dump completed on 2020-12-06 14:39:03
