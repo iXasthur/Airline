@@ -2,7 +2,6 @@ package service;
 
 import dao.sql.MemberDAOSQL;
 import entity.Member;
-import utils.Hasher;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class UserService {
 
     public static Member auth(String email, String phash) {
         try {
-            Member member = new MemberDAOSQL().getMember(email);
+            Member member = new MemberDAOSQL().getMemberByEmail(email);
             if (member != null && member.passwordHash.equals(phash)) {
                 return member;
             }
