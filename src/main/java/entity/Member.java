@@ -12,9 +12,11 @@ public class Member {
         CUSTOMER
     }
 
+    private int id;
     private String firstName;
     private String middleName;
     private String lastName;
     private String email;
-
+    private String passwordHash;
+    private Role role;
 }
