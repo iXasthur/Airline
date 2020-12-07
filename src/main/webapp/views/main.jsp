@@ -5,7 +5,9 @@
 <%@ page import="entity.Crew" %>
 <%@ page import="service.CrewService" %>
 <%@ page import="entity.Airport" %>
-<%@ page import="service.AirportService" %><%--
+<%@ page import="service.AirportService" %>
+<%@ page import="entity.Flight" %>
+<%@ page import="service.FlightService" %><%--
   Created by IntelliJ IDEA.
   User: iXasthur
   Date: 25.11.2020
@@ -205,6 +207,11 @@
 <h1>Flights</h1>
 <%
     //Flights
+    List<Flight> flights = FlightService.getAll();
+    for (Flight flight : flights) {
+        String desc = flight.departure.name + " -> " + flight.arrival.name + " at " + flight.date.toString() + " seats " + flight.seats;
+        out.print("<p>Flight " + flight.id + " (" + desc + ")</p>");
+    }
 %>
 </body>
 </html>
