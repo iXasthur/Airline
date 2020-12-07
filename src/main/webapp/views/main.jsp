@@ -3,7 +3,9 @@
 <%@ page import="service.UserService" %>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Crew" %>
-<%@ page import="service.CrewService" %><%--
+<%@ page import="service.CrewService" %>
+<%@ page import="entity.Airport" %>
+<%@ page import="service.AirportService" %><%--
   Created by IntelliJ IDEA.
   User: iXasthur
   Date: 25.11.2020
@@ -136,9 +138,9 @@
 <%
     //Crews
     List<Crew> crews = CrewService.getAll();
-    for (Crew crew: crews) {
+    for (Crew crew : crews) {
         String names = "";
-        for (Member m: crew.members) {
+        for (Member m : crew.members) {
             String name = m.firstName + " " + m.middleName + " " + m.lastName;
             names += name + ", ";
         }
@@ -148,7 +150,46 @@
 <%
     // Flight creation (admin)
     if (member != null && member.role == Member.Role.ADMIN) {
+        List<Airport> airports = AirportService.getAll();
         out.print("<h1>Flight creator</h1>");
+        out.print("<form action=\"\" + request.getContextPath() + \"\" method=\"post\">\n" +
+                "    <table>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"departure\">Departure</label>\n" +
+                "                <select id=\"departure\" name=\"departure\">");
+        for (Airport airport : airports) {
+            out.print("<option value=\"" + airport.id + "\">" + airport.name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td>\n" +
+                "                <label for=\"arrival\">Arrival</label>\n" +
+                "                <select id=\"arrival\" name=\"arrival\">");
+        for (Airport airport : airports) {
+            out.print("<option value=\"" + airport.id + "\">" + airport.name + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>");
+        out.print("<tr>\n" +
+                "            <td>\n" +
+                "            <label for=\\\"date\\\">Date</label>" +
+                "                <input type=\"datetime-local\" name=\"date\" required/>\n" +
+                "            </td>\n" +
+                "        </tr>");
+        out.print("<tr>\n" +
+                "            <td>\n" +
+                "            <label for=\\\"sits\\\">Sits</label>" +
+                "                <input type=\"number\" name=\"sits\" required/>\n" +
+                "            </td>\n" +
+                "        </tr>");
+        out.print("</table>");
+        out.print("<input type=\"hidden\" name=\"action\" value=\"addflight\" hidden/>\n" +
+                "    <input type=\"submit\" value=\"Submit\"/>\n" +
+                "</form>");
     }
 %>
 <h1>Flights</h1>

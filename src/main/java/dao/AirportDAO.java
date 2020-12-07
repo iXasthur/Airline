@@ -1,5 +1,10 @@
 package dao;
 
-public interface AirportDAO {
+import entity.Airport;
+import entity.Crew;
 
+import java.util.List;
+
+public interface AirportDAO {
+    List<Airport> getAirports() throws Exception;
 }
