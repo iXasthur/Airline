@@ -209,8 +209,14 @@
     //Flights
     List<Flight> flights = FlightService.getAll();
     for (Flight flight : flights) {
-        String desc = flight.departure.name + " -> " + flight.arrival.name + " at " + flight.date.toString() + " seats " + flight.seats;
-        out.print("<p>Flight " + flight.id + " (" + desc + ")</p>");
+        String departureDesc = flight.departure.name + ", " + flight.departure.country.name + ", " + flight.departure.city.name;
+        String arrivalDesc = flight.arrival.name + ", " + flight.arrival.country.name + ", " + flight.arrival.city.name;
+
+        out.print("<p>Flight " + flight.id + "</p>");
+        out.print("<p>- DEPARTURE: " + departureDesc + "</p>");
+        out.print("<p>- ARRIVAL: " + arrivalDesc + "</p>");
+        out.print("<p>- FLIGHT TIME: " + flight.date.toString() + "</p>");
+        out.print("<p>- SEATS: " + flight.seats + "</p>");
     }
 %>
 </body>

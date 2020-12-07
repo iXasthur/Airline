@@ -32,7 +32,7 @@ CREATE TABLE `airport` (
   KEY `airport_city_id_fk` (`city_id`),
   CONSTRAINT `airport_city_id_fk` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
   CONSTRAINT `airport_country_id_fk` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `airport` (
 
 LOCK TABLES `airport` WRITE;
 /*!40000 ALTER TABLE `airport` DISABLE KEYS */;
+INSERT INTO `airport` VALUES (1,'JFK',1,1),(2,'LAX',1,2),(3,'DTW',1,3),(4,'SYD',2,4),(5,'MSQ',3,5),(6,'YYZ',4,6),(7,'MLE',5,7),(8,'LCY',6,8);
 /*!40000 ALTER TABLE `airport` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -58,7 +59,7 @@ CREATE TABLE `city` (
   PRIMARY KEY (`id`),
   KEY `city_country_id_fk` (`country_id`),
   CONSTRAINT `city_country_id_fk` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,6 +68,7 @@ CREATE TABLE `city` (
 
 LOCK TABLES `city` WRITE;
 /*!40000 ALTER TABLE `city` DISABLE KEYS */;
+INSERT INTO `city` VALUES (1,'New York City',1),(2,'Los Angeles',1),(3,'Detroit',1),(4,'Sydney',2),(5,'Minsk',3),(6,'Toronto',4),(7,'Male',5),(8,'London',6);
 /*!40000 ALTER TABLE `city` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +83,7 @@ CREATE TABLE `country` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,6 +92,7 @@ CREATE TABLE `country` (
 
 LOCK TABLES `country` WRITE;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
+INSERT INTO `country` VALUES (1,'United States of America'),(2,'Australia'),(3,'Belarus'),(4,'Canada'),(5,'Maldives'),(6,'Great Britain');
 /*!40000 ALTER TABLE `country` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +106,7 @@ DROP TABLE IF EXISTS `crew`;
 CREATE TABLE `crew` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,6 +115,7 @@ CREATE TABLE `crew` (
 
 LOCK TABLES `crew` WRITE;
 /*!40000 ALTER TABLE `crew` DISABLE KEYS */;
+INSERT INTO `crew` VALUES (11),(12),(13);
 /*!40000 ALTER TABLE `crew` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,6 +142,7 @@ CREATE TABLE `crew_member` (
 
 LOCK TABLES `crew_member` WRITE;
 /*!40000 ALTER TABLE `crew_member` DISABLE KEYS */;
+INSERT INTO `crew_member` VALUES (11,10),(11,10),(11,13),(11,12),(11,14),(11,14),(11,14),(12,10),(12,11),(12,13),(12,12),(12,14),(12,17),(12,16),(13,10),(13,10),(13,13),(13,12),(13,14),(13,14),(13,14);
 /*!40000 ALTER TABLE `crew_member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +158,7 @@ CREATE TABLE `flight` (
   `departure_airport_id` int NOT NULL,
   `arrival_airport_id` int NOT NULL,
   `crew_id` int NOT NULL,
-  `date` datetime NOT NULL,
+  `date` varchar(32) NOT NULL,
   `seats` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `flight_crew_id_fk` (`crew_id`),
@@ -162,7 +167,7 @@ CREATE TABLE `flight` (
   CONSTRAINT `flight_airport_id_fk` FOREIGN KEY (`departure_airport_id`) REFERENCES `airport` (`id`),
   CONSTRAINT `flight_airport_id_fk_2` FOREIGN KEY (`arrival_airport_id`) REFERENCES `airport` (`id`),
   CONSTRAINT `flight_crew_id_fk` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,6 +176,7 @@ CREATE TABLE `flight` (
 
 LOCK TABLES `flight` WRITE;
 /*!40000 ALTER TABLE `flight` DISABLE KEYS */;
+INSERT INTO `flight` VALUES (1,1,1,11,'2020-12-20T03:27',1),(2,1,5,13,'2020-12-26T03:32',450);
 /*!40000 ALTER TABLE `flight` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,9 +194,9 @@ CREATE TABLE `member` (
   `last_name` varchar(128) DEFAULT NULL,
   `role` enum('admin','supervisor','pilot','navigator','radioman','stewardess','customer') DEFAULT NULL,
   `email` varchar(128) DEFAULT NULL,
-  `password_hash` varbinary(64) DEFAULT NULL,
+  `password_hash` char(64) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,6 +205,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
+INSERT INTO `member` VALUES (1,'Mikhail','Yurievich','Kavaleuski','admin','admin@airline.io','8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'),(6,'Igor','Pavlovich','Nadenenko','customer','igor@airline.io','03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'),(9,'Vlad','-','Horbach','admin','horbach@horbach.ru','b27989f8a541631774da5e7c664d22c853f84a1c0fe480e18fcc49fb7600d934'),(10,'pilot1','pilot1','pilot1','pilot','pilot1@horbach.ru','c84c15919aa78185e53a822e589d11f6bd7bb0e18902709af9d0a021e43b89b7'),(11,'pilot2','pilot2','pilot2','pilot','pilot2@horbach.ru','a9be6cd3e9e51c3aaa2d9fc675659f8cc2ea106e2dcf24739b34f6f342cc2939'),(12,'radioman','radioman','radioman','radioman','radioman@horbach.ru','c47f324f69931adc5edd66d44c6807bd7f2fc87656b2af1f278cc5679ac2fd72'),(13,'navigator','navigator','navigator','navigator','navigator@horbach.ru','ebf49dcd836f810084c14e0f2dab4dc1768bbdc5980481bf201fcf76771dff7a'),(14,'stewardess0','stewardess0','stewardess0','stewardess','stewardess0@horbach.ru','9f9faef4e862cf5629b889114115d4619714716c087fcea40a6a660f68b299a1'),(15,'stewardess1','stewardess1','stewardess1','stewardess','stewardess1@horbach.ru','50bb8012da89590575fc3bfd47fd406ee2f8ac595fb61a83be493d796c8dcb15'),(16,'stewardess2','stewardess2','stewardess2','stewardess','stewardess2@horbach.ru','10094eb93798831e36b8aaab6d22d1868db1d0e4401ab30bfec38e7d8bf9693d'),(17,'stewardess3','stewardess3','stewardess3','stewardess','stewardess3@horbach.ru','b7a105d2a88f1fe231f5add5f7d5752d5087662b2558f114463438a369416295'),(18,'stewardess4','stewardess4','stewardess4','stewardess','stewardess4@horbach.ru','984e84ed725c4bfc0daa85f6721a1ff695f2e34d68ba5c0c9d30ba1b73ed6b77'),(19,'radioman55','radioman55','radioman55','radioman','radioman55@horbach.ru','1ba889614adfcfb57ea60d33b9057e8000753dfe58eeb2da68266990dd1e73cf');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,4 +246,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-06 14:39:03
+-- Dump completed on 2020-12-07  3:34:19
