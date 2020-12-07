@@ -16,4 +16,13 @@ public class AirportService {
         }
         return null;
     }
+
+    public static Airport byID(int id) {
+        try {
+            return new AirportDAOSQL().getAirportByID(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

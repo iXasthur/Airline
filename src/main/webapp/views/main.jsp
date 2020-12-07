@@ -175,6 +175,16 @@
                 "            </td>\n" +
                 "        </tr>");
         out.print("<tr>\n" +
+                "                            <td>" +
+                "                                <label for=\"crew\">Crew</label>" +
+                "                                <select id=\"crew\" name=\"crew\">\"");
+        for (Crew crew : crews) {
+            out.print("<option value=\"" + crew.id + "\">" + crew.id + "</option>");
+        }
+        out.print("</select>\n" +
+                "            </td>\n" +
+                "        </tr>");
+        out.print("<tr>\n" +
                 "            <td>\n" +
                 "            <label for=\\\"date\\\">Date</label>" +
                 "                <input type=\"datetime-local\" name=\"date\" required/>\n" +
@@ -182,8 +192,8 @@
                 "        </tr>");
         out.print("<tr>\n" +
                 "            <td>\n" +
-                "            <label for=\\\"sits\\\">Sits</label>" +
-                "                <input type=\"number\" name=\"sits\" required/>\n" +
+                "            <label for=\\\"seats\\\">Seats</label>" +
+                "                <input type=\"number\" name=\"seats\" required/>\n" +
                 "            </td>\n" +
                 "        </tr>");
         out.print("</table>");

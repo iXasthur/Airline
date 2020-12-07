@@ -35,4 +35,12 @@ public class AirportDAOSQL implements AirportDAO {
 
         return null;
     }
+
+    @Override
+    public Airport getAirportByID(int id) throws Exception {
+        // Inefficient
+        List<Airport> airports = getAirports();
+        airports.removeIf(airport -> airport.id != id);
+        return airports.get(0);
+    }
 }

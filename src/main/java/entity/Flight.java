@@ -1,16 +1,17 @@
 package entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Flight {
-    private int id;
-    private Airport departure;
-    private Airport arrival;
-    private Crew crew;
-    private Date date;
-    private int seats;
+    public final int id;
+    public final Airport departure;
+    public final Airport arrival;
+    public final Crew crew;
+    public final LocalDateTime date;
+    public final int seats;
 
-    public Flight(int id, Airport departure, Airport arrival, Crew crew, Date date, int seats) {
+    public Flight(int id, Airport departure, Airport arrival, Crew crew, LocalDateTime date, int seats) {
         this.id = id;
         this.departure = departure;
         this.arrival = arrival;

@@ -16,4 +16,10 @@ public class CrewService {
         }
         return null;
     }
+
+    public static Crew byID(int id) {
+        List<Crew> crews = getAll();
+        crews.removeIf(crew -> crew.id != id);
+        return crews.get(0);
+    }
 }

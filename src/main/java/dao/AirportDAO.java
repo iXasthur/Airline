@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AirportDAO {
     List<Airport> getAirports() throws Exception;
+    Airport getAirportByID(int id) throws Exception;
 }
